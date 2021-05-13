@@ -1,25 +1,40 @@
 const express = require("express");
 const logger = require("morgan");
-const mongojs = require("mongojs");
 const mongoose = require("mongoose");
-const path = require("path");
-
 
 const PORT = process.env.PORT || 3000;
 
-//import the model folder TODO: create model folder
-const db = require("./models");
+// const db = require("./models");
 
 const app = express();
 
 app.use(logger("dev"));
 
-//connect to the mongo database
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitnessdb", { useNewUrlParser: true });
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use(express.static("public"));
+
+
+//connect to the mongo database - boilerplate except for name of database
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", 
+    { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+    }
+);
+
+
+
+//route to post new workout
+app.post("/stats", (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/stats.html"));
+});
+
 
 //route for index.html
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname + "/public/index.html"));
+    res.send("workout time!")
 });
 
 //route for 'new workout'
@@ -37,9 +52,18 @@ app.get("/stats", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/stats.html"));
 });
 
-
-
-
+//route for posting new workout
+app.post("/api/workouts", (req, res) => {
+    console.log(req.body);
+    res.send(req.body);
+    db.Workout.create(req.body)
+        .then(dbWorkout => {
+            console.log(dbWorkout);
+        })
+        .catch(({ message }) => {
+            console.log(message);
+        })
+});
 
 
 
