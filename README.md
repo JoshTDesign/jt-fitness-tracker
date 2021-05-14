@@ -22,7 +22,17 @@ New workouts can be created and updated. As new exercises are complete, then can
 ### Challenges encountered  
 This project was created for a coding bootcamp. The front end was pre-built but needed a back-end. Models were created for Mongooseand api routes designed to interact with MongoDB.
 
+### Screenshots
 
+![screencap1](https://user-images.githubusercontent.com/78992027/118321572-9f04c380-b4b2-11eb-85fb-66e0a7da3d56.PNG)
+
+![screencap2](https://user-images.githubusercontent.com/78992027/118321582-a1ffb400-b4b2-11eb-8384-10efaa4ca138.PNG)
+
+### Link to deployed project
+[Deployed app](https://cryptic-cliffs-41900.herokuapp.com/)
+
+### Link to GitHub repo
+[GitHub repo](https://github.com/JoshTDesign/jt-fitness-tracker)
 
 ### How to contribute  
 Feel free to clone this repo and add to this project.
