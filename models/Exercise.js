@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 const ExerciseSchema = new Schema({
   type: String,
   name: String,
-  duration: Number,
   distance: Number,
+  duration: Number,
   weight: Number,
-  reps: Number,
   sets: Number,
+  reps: Number
 });
 
 
