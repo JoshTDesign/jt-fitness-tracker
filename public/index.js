@@ -1,4 +1,4 @@
-// init();
+init();
 
 async function init() {
   if (location.search.split("=")[1] === undefined) {
@@ -7,6 +7,7 @@ async function init() {
       location.search = "?id=" + workout._id;
     } else {
       document.querySelector("#continue-btn").classList.add("d-none")
+      
     }
   }
 }

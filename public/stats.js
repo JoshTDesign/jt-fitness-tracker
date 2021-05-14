@@ -1,3 +1,6 @@
+
+
+
 function generatePalette() {
   const arr = [
     '#003f5c',
@@ -20,6 +23,18 @@ function generatePalette() {
 
   return arr;
 }
+
+fetch("/api/workouts/")
+  .then(response => {
+    return response.json();
+  })
+  .then(data => {
+    populateChart(data);
+    console.log(data);
+
+  });
+
+API.getWorkoutsInRange();
 
 function populateChart(data) {
   let durations = data.map(({ totalDuration }) => totalDuration);

@@ -15,7 +15,7 @@ const API = {
   async addExercise(data) {
     const id = location.search.split("=")[1];
     
-    // TODO: add route for this
+    // TODO: add route for this DONE???
     const res = await fetch("/api/workouts/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -28,10 +28,9 @@ const API = {
   },
 
   // added route for this - done
-  async createWorkout(data = {}) {
+  async createWorkout() {
     const res = await fetch("/api/workouts", {
       method: "POST",
-      body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
     });
 
