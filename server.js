@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
 
-// const db = require("./models");
+const db = require("./models");
 
 const app = express();
 
@@ -24,13 +24,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout",
     }
 );
 
-
-
-//route to post new workout
-app.post("/stats", (req, res) => {
-    res.sendFile(path.join(__dirname + "/public/stats.html"));
-});
-
+//home routes
 
 //route for index.html
 app.get("/", (req, res) => {
@@ -42,27 +36,62 @@ app.get("/exercise", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/exercise.html"));
 });
 
-//route for 'continue workout'
-app.get("/exercise/:id", (req, res) => {
-    res.sendFile(path.join(__dirname + "/public/index.html"));
-});
-
 //route for 'dashboard'
 app.get("/stats", (req, res) => {
     res.sendFile(path.join(__dirname + "/public/stats.html"));
 });
 
+
+//route to post new workout
+app.post("/stats", (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/stats.html"));
+});
+
+//route for 'continue workout'
+app.get("/exercise/:id", (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/index.html"));
+});
+
+
+
+
+
 //route for posting new workout
 app.post("/api/workouts", (req, res) => {
-    console.log(req.body);
-    res.send(req.body);
     db.Workout.create(req.body)
-        .then(dbWorkout => {
-            console.log(dbWorkout);
-        })
-        .catch(({ message }) => {
-            console.log(message);
-        })
+        .then(newWorkout => {
+            res.json(newWorkout)
+        }).catch(err => {
+            res.status(500).json(err);
+    })
+});
+
+//route for posting new workout
+app.post("/api/exercises", (req, res) => {
+    db.Exercise.create(req.body)
+        .then(newExercise => {
+            res.json(newExercise)
+        }).catch(err => {
+            res.status(500).json(err);
+    })
+});
+
+//route for getting all workouts
+app.get("/api/workouts", (req, res) => {
+    db.Workout.find().then(allWorkouts => {
+        res.json(allWorkouts)
+    }).catch(err=> {
+        res.status(500).json(err);
+    });
+});
+
+//route for getting all exercises
+app.get("/api/exercises", (req, res) => {
+    db.Exercise.find().then(allExercises => {
+        res.json(allExercises)
+    }).catch(err=> {
+        res.status(500).json(err);
+    });
 });
 
 
