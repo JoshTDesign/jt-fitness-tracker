@@ -20,7 +20,9 @@ app.use(express.static("public"));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", 
     { 
     useNewUrlParser: true,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
     }
 );
 
@@ -48,25 +50,7 @@ app.get("/stats", (req, res) => {
 
 //API ROUTES-------------------------------------------
 
-//route for posting new workout
-// app.post("/api/workouts", (req, res) => {
-//     db.Workout.create({})
-//     .then(newWorkout => {
-//         res.json(newWorkout)
-//     }).catch(err => {
-//         res.status(500).json(err);
-//     })
-// });
 
-//route for 'create new workout
-// app.post("/api/workouts", async (req, res) => {
-//     db.Workout.create({})
-//     .then(newWorkout => {
-//         res.json(newWorkout)
-//     }).catch(err => {
-//         res.status(500).json(err);
-//     })
-// });
 
 app.post("/api/workouts", (req, res) => {
     db.Workout.create({})
